@@ -35,14 +35,14 @@ export async function list(username: string, opts: OptionValues): Promise<void> 
     console.log(
         list
             .map(
-                ({ name, description, created_at }, idx) =>
+                ({ name, description, created_at, license }, idx) =>
                     `${(idx + 1)
                         .toString()
                         .padStart(Math.log10(list.length) + 1)}. \x1b[96m${new Date(created_at || 0)
                         .toLocaleDateString()
-                        .padEnd(12)}\x1b[m \x1b[93m${name}\x1b[m\n    - ${
-                        description?.slice(0, 74) || "No description."
-                    }`,
+                        .padEnd(12)}\x1b[m \x1b[93m${name}\x1b[m \x1b[95m${
+                        license?.key?.toUpperCase() || ""
+                    }\x1b[m\n    - ${description?.slice(0, 74) || "No description."}`,
             )
             .join("\n"),
     );
